@@ -42,6 +42,17 @@ if ($installVSCodeExtensions) {
     code --install-extension ms-vscode.vscode-typescript-next
 }
 
+# Set custom VSCode keybindings
+$sourceKeybindings = "vscode/keybindings.json"
+$targetKeybindings = "$env:APPDATA\Code\User\keybindings.json"
+
+if (Test-Path $sourceKeybindings) {
+    Copy-Item -Path $sourceKeybindings -Destination $targetKeybindings -Force
+    Write-Host "VSCode keybindings have been set." -ForegroundColor Green
+} else {
+    Write-Host "Source keybindings file not found." -ForegroundColor Red
+}
+
 
 # Dotnet related
 dotnet workload update
@@ -67,7 +78,7 @@ else {
 $autoHotKeyScriptTargetFile = "$env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\MainScript.ahk"
 
 if (!(Test-Path $autoHotKeyScriptTargetFile)) {
-    New-Item -Path  -ItemType SymbolicLink -Value ./MainScript.ahk
+    New-Item -Path $autoHotKeyScriptTargetFile -ItemType SymbolicLink -Value ./MainScript.ahk -Force
 }
 
 # NodeJs Stuff

@@ -27,7 +27,7 @@ if GetKeyState("Shift", "P")
 }
 else
 {
-    Run, wt --window "Terminal" -d %CurrentExplorerPath% 
+    Run wt.exe --window "Terminal" -d `"%CurrentExplorerPath%`"
 }
 
 
